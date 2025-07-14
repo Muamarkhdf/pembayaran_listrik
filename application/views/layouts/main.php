@@ -54,7 +54,7 @@ $content = $content ?? 'application/views/pages/dashboard.php';
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800"><?= $page_title ?></h1>
+                    <!-- <h1 class="h3 mb-0 text-gray-800"><?= $page_title ?></h1> -->
                     <?php if (isset($page_breadcrumb)): ?>
                     <ol class="breadcrumb">
                         <?php foreach ($page_breadcrumb as $breadcrumb): ?>
