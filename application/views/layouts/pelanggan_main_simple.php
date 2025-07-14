@@ -29,7 +29,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="<?= base_url('pelanggan_dashboard') ?>">
+        <a class="navbar-brand" href="<?= base_url('customer') ?>">
             <i class="fas fa-bolt mr-2"></i>Sistem Pembayaran Listrik
         </a>
         
@@ -63,19 +63,19 @@
                 </div>
                 <div class="card-body p-0">
                     <div class="list-group list-group-flush">
-                        <a href="<?= base_url('pelanggan_dashboard') ?>" class="list-group-item list-group-item-action <?= ($active_page == 'dashboard') ? 'active' : '' ?>">
+                        <a href="<?= base_url('customer') ?>" class="list-group-item list-group-item-action <?= ($active_page == 'dashboard') ? 'active' : '' ?>">
                             <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
                         </a>
-                        <a href="<?= base_url('pelanggan_dashboard/bills') ?>" class="list-group-item list-group-item-action <?= ($active_page == 'bills') ? 'active' : '' ?>">
+                        <a href="<?= base_url('customer/bills') ?>" class="list-group-item list-group-item-action <?= ($active_page == 'bills') ? 'active' : '' ?>">
                             <i class="fas fa-file-invoice mr-2"></i>Tagihan Saya
                         </a>
-                        <a href="<?= base_url('pelanggan_dashboard/usage') ?>" class="list-group-item list-group-item-action <?= ($active_page == 'usage') ? 'active' : '' ?>">
+                        <a href="<?= base_url('customer/usage') ?>" class="list-group-item list-group-item-action <?= ($active_page == 'usage') ? 'active' : '' ?>">
                             <i class="fas fa-chart-line mr-2"></i>Penggunaan Listrik
                         </a>
-                        <a href="<?= base_url('pelanggan_dashboard/payment_history') ?>" class="list-group-item list-group-item-action <?= ($active_page == 'payment_history') ? 'active' : '' ?>">
+                        <a href="<?= base_url('customer/payment_history') ?>" class="list-group-item list-group-item-action <?= ($active_page == 'payment_history') ? 'active' : '' ?>">
                             <i class="fas fa-history mr-2"></i>Riwayat Pembayaran
                         </a>
-                        <a href="<?= base_url('pelanggan_dashboard/usage_charts') ?>" class="list-group-item list-group-item-action <?= ($active_page == 'usage_charts') ? 'active' : '' ?>">
+                        <a href="<?= base_url('customer/usage_charts') ?>" class="list-group-item list-group-item-action <?= ($active_page == 'usage_charts') ? 'active' : '' ?>">
                             <i class="fas fa-chart-pie mr-2"></i>Grafik Penggunaan
                         </a>
                     </div>
@@ -85,8 +85,16 @@
         
         <!-- Content -->
         <div class="col-md-9">
-            <?php if (isset($content)): ?>
-                <?php include $content; ?>
+            <?php if (isset($page_title) && $page_title == 'Dashboard Pelanggan'): ?>
+                <?php $this->load->view('pages/pelanggan_dashboard_simple'); ?>
+            <?php elseif (isset($page_title) && $page_title == 'Tagihan Saya'): ?>
+                <?php $this->load->view('pages/pelanggan_bills'); ?>
+            <?php elseif (isset($page_title) && $page_title == 'Penggunaan Listrik'): ?>
+                <?php $this->load->view('pages/pelanggan_usage'); ?>
+            <?php elseif (isset($page_title) && $page_title == 'Riwayat Pembayaran'): ?>
+                <?php $this->load->view('pages/pelanggan_payment_history'); ?>
+            <?php elseif (isset($page_title) && $page_title == 'Grafik Penggunaan'): ?>
+                <?php $this->load->view('pages/pelanggan_usage_charts'); ?>
             <?php else: ?>
                 <div class="alert alert-warning">
                     <h4>Halaman tidak ditemukan</h4>

@@ -60,3 +60,7 @@ $route['pelanggan_dashboard/(:any)'] = 'pelanggan_dashboard/$1';
 // Alternative Customer Dashboard Routes
 $route['pelanggan/dashboard'] = 'pelanggan/dashboard';
 $route['pelanggan/(:any)'] = 'pelanggan/$1';
+
+// Customer Routes (for the Customer controller)
+$route['customer'] = 'customer/index';
+$route['customer/(:any)'] = 'customer/$1';

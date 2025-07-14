@@ -28,16 +28,13 @@ class Customer extends CI_Controller {
         // Get customer data
         $data = $this->get_customer_dashboard_data($customer_id);
         
-        // Set the content view
-        $data['content'] = 'pages/pelanggan_dashboard_simple.php';
-        
         // Debug: Check if data is loaded
         if (empty($data['customer_info'])) {
             echo "Error: Customer info not found for ID: " . $customer_id;
             return;
         }
         
-        // Load the simple template
+        // Load the dashboard view directly
         $this->load->view('layouts/pelanggan_main_simple', $data);
     }
 
@@ -180,6 +177,142 @@ class Customer extends CI_Controller {
             WHERE png.id_pelanggan = ?
             ORDER BY png.tahun DESC, png.bulan DESC
             LIMIT 6
+        ", array($customer_id));
+        
+        return $query->result_array();
+    }
+
+    /**
+     * Customer Bills Page
+     */
+    public function bills()
+    {
+        // Check if user is logged in and is customer
+        if (!$this->session->userdata('logged_in') || $this->session->userdata('user_type') != 'pelanggan') {
+            redirect('auth');
+        }
+
+        $customer_id = $this->session->userdata('user_id');
+        
+        // Get all bills for customer
+        $data['tagihan_list'] = $this->get_all_bills($customer_id);
+        $data['customer_info'] = $this->get_customer_info($customer_id);
+        $data['page_title'] = 'Tagihan Saya';
+        $data['active_page'] = 'bills';
+        
+        $this->load->view('layouts/pelanggan_main_simple', $data);
+    }
+
+    /**
+     * Customer Usage Page
+     */
+    public function usage()
+    {
+        // Check if user is logged in and is customer
+        if (!$this->session->userdata('logged_in') || $this->session->userdata('user_type') != 'pelanggan') {
+            redirect('auth');
+        }
+
+        $customer_id = $this->session->userdata('user_id');
+        
+        // Get all usage data for customer
+        $data['penggunaan_list'] = $this->get_all_usage($customer_id);
+        $data['customer_info'] = $this->get_customer_info($customer_id);
+        $data['page_title'] = 'Penggunaan Listrik';
+        $data['active_page'] = 'usage';
+        
+        $this->load->view('layouts/pelanggan_main_simple', $data);
+    }
+
+    /**
+     * Customer Payment History Page
+     */
+    public function payment_history()
+    {
+        // Check if user is logged in and is customer
+        if (!$this->session->userdata('logged_in') || $this->session->userdata('user_type') != 'pelanggan') {
+            redirect('auth');
+        }
+
+        $customer_id = $this->session->userdata('user_id');
+        
+        // Get all payments for customer
+        $data['pembayaran_list'] = $this->get_all_payments($customer_id);
+        $data['customer_info'] = $this->get_customer_info($customer_id);
+        $data['page_title'] = 'Riwayat Pembayaran';
+        $data['active_page'] = 'payment_history';
+        
+        $this->load->view('layouts/pelanggan_main_simple', $data);
+    }
+
+    /**
+     * Customer Usage Charts Page
+     */
+    public function usage_charts()
+    {
+        // Check if user is logged in and is customer
+        if (!$this->session->userdata('logged_in') || $this->session->userdata('user_type') != 'pelanggan') {
+            redirect('auth');
+        }
+
+        $customer_id = $this->session->userdata('user_id');
+        
+        // Get usage data for charts
+        $data['usage_data'] = $this->get_usage_statistics($customer_id);
+        $data['customer_info'] = $this->get_customer_info($customer_id);
+        $data['page_title'] = 'Grafik Penggunaan';
+        $data['active_page'] = 'usage_charts';
+        
+        $this->load->view('layouts/pelanggan_main_simple', $data);
+    }
+
+    /**
+     * Get all bills for customer
+     */
+    private function get_all_bills($customer_id) {
+        $query = $this->db->query("
+            SELECT t.*, p.nama_pelanggan, tr.tarifperkwh,
+                   (t.jumlah_meter * tr.tarifperkwh) as total_tagihan
+            FROM tagihan t
+            JOIN pelanggan p ON t.id_pelanggan = p.id_pelanggan
+            LEFT JOIN tarif tr ON p.id_tarif = tr.id_tarif
+            WHERE t.id_pelanggan = ?
+            ORDER BY t.tahun DESC, t.bulan DESC
+        ", array($customer_id));
+        
+        return $query->result_array();
+    }
+
+    /**
+     * Get all usage data for customer
+     */
+    private function get_all_usage($customer_id) {
+        $query = $this->db->query("
+            SELECT 
+                png.*,
+                (png.meter_ahir - png.meter_awal) as total_kwh,
+                tr.tarifperkwh,
+                ((png.meter_ahir - png.meter_awal) * tr.tarifperkwh) as estimasi_tagihan
+            FROM penggunaan png
+            LEFT JOIN pelanggan p ON png.id_pelanggan = p.id_pelanggan
+            LEFT JOIN tarif tr ON p.id_tarif = tr.id_tarif
+            WHERE png.id_pelanggan = ?
+            ORDER BY png.tahun DESC, png.bulan DESC
+        ", array($customer_id));
+        
+        return $query->result_array();
+    }
+
+    /**
+     * Get all payments for customer
+     */
+    private function get_all_payments($customer_id) {
+        $query = $this->db->query("
+            SELECT pmb.*, t.bulan, t.tahun, t.jumlah_meter, t.status as tagihan_status
+            FROM pembayaran pmb
+            JOIN tagihan t ON pmb.id_tagihan = t.id_tagihan
+            WHERE pmb.id_pelanggan = ?
+            ORDER BY pmb.tanggal_pembayaran DESC
         ", array($customer_id));
         
         return $query->result_array();
