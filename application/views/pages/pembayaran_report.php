@@ -98,7 +98,6 @@
                 </div>
             </div>
         </div>
-
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
@@ -118,7 +117,6 @@
                 </div>
             </div>
         </div>
-
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
@@ -128,7 +126,7 @@
                                 Rata-rata Pembayaran
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                Rp <?= number_format($statistics['rata_rata_pembayaran'] ?? 0, 0, ',', '.') ?>
+                                Rp <?= number_format($statistics['rata_rata'] ?? 0, 0, ',', '.') ?>
                             </div>
                         </div>
                         <div class="col-auto">
@@ -138,7 +136,6 @@
                 </div>
             </div>
         </div>
-
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
@@ -148,7 +145,7 @@
                                 Pelanggan Aktif
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                <?= number_format($statistics['jumlah_pelanggan'] ?? 0) ?>
+                                <?= number_format($statistics['pelanggan_aktif'] ?? 0) ?>
                             </div>
                         </div>
                         <div class="col-auto">
@@ -188,7 +185,6 @@
                                 <th>Total Tagihan</th>
                                 <th>Biaya Admin</th>
                                 <th>Total Bayar</th>
-                                <th>Petugas</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -234,11 +230,6 @@
                                         <span class="text-primary font-weight-bold">
                                             Rp <?= number_format($payment['total_bayar'], 0, ',', '.') ?>
                                         </span>
-                                    </td>
-                                    <td>
-                                        <small class="text-muted">
-                                            <?= htmlspecialchars($payment['nama_admin']) ?>
-                                        </small>
                                     </td>
                                     <td>
                                         <?php if ($payment['status_tagihan'] == 'sudah_bayar'): ?>

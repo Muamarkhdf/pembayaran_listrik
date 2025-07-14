@@ -24,9 +24,9 @@ $active_page = 'laporan';
 
 <div class="container-fluid">
     <!-- Page Header -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <div class="d-sm-flex gap-2 align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Dashboard Laporan</h1>
-        <div class="btn-group" role="group">
+        <div class="flex gap-2" role="group">
             <a href="<?= base_url('pembayaran/report') ?>" class="btn btn-primary btn-sm">
                 <i class="fas fa-receipt"></i> Laporan Pembayaran
             </a>

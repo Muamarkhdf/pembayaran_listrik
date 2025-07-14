@@ -206,7 +206,7 @@ $active_page = 'laporan';
                                 </tbody>
                                 <tfoot>
                                     <tr class="table-info">
-                                        <th colspan="8" class="text-right"><strong>TOTAL:</strong></th>
+                                        <th colspan="9" class="text-right"><strong>TOTAL:</strong></th>
                                         <th>Rp <?= number_format($total_admin, 0, ',', '.') ?></th>
                                         <th><strong>Rp <?= number_format($total_pembayaran, 0, ',', '.') ?></strong></th>
                                         <th></th>

@@ -108,7 +108,7 @@ class Penggunaan extends CI_Controller {
                             } else {
                                 // Transaction successful
                                 $this->session->set_flashdata('success', 'Data penggunaan dan tagihan berhasil ditambahkan!');
-                                redirect('penggunaan');
+                    redirect('penggunaan');
                             }
                         } else {
                             // Rollback transaction
@@ -258,7 +258,7 @@ class Penggunaan extends CI_Controller {
                                 } else {
                                     // Transaction successful
                                     $this->session->set_flashdata('success', 'Data penggunaan berhasil diupdate dan tagihan baru dibuat!');
-                                    redirect('penggunaan');
+                    redirect('penggunaan');
                                 }
                             } else {
                                 // Rollback transaction

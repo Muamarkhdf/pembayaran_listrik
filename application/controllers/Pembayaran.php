@@ -86,8 +86,8 @@ class Pembayaran extends CI_Controller {
                         $this->session->set_flashdata('error', 'Gagal memproses pembayaran!');
                     } else {
                         // Transaction successful
-                        $this->session->set_flashdata('success', 'Pembayaran berhasil diproses!');
-                        redirect('pembayaran');
+                    $this->session->set_flashdata('success', 'Pembayaran berhasil diproses!');
+                    redirect('pembayaran');
                     }
                 } else {
                     // Rollback transaction
@@ -121,17 +121,25 @@ class Pembayaran extends CI_Controller {
         
         if ($this->input->post()) {
             $this->form_validation->set_rules('biaya_admin', 'Biaya Admin', 'required|numeric');
-            $this->form_validation->set_rules('total_bayar', 'Total Bayar', 'required|numeric');
+            // Tidak perlu validasi total_bayar dari input user
             
             if ($this->form_validation->run() === TRUE) {
+                // Ambil data pembayaran lama untuk dapatkan id_tagihan
+                $pembayaran_lama = $this->Pembayaran_model->get_by_id($id);
+                $id_tagihan = $pembayaran_lama['id_tagihan'];
+                // Ambil data tagihan terkait
+                $tagihan = $this->get_bill_by_id($id_tagihan);
+                $tarif = $tagihan['tarifperkwh'];
+                $jumlah_meter = $tagihan['jumlah_meter'];
+                $total_tagihan = $tarif * $jumlah_meter;
+                $biaya_admin = $this->input->post('biaya_admin');
+                $total_bayar = $total_tagihan + $biaya_admin;
                 $data_update = [
-                    'biaya_admin' => $this->input->post('biaya_admin'),
-                    'total_bayar' => $this->input->post('total_bayar'),
+                    'biaya_admin' => $biaya_admin,
+                    'total_bayar' => $total_bayar,
                     'tanggal_pembayaran' => date('Y-m-d H:i:s')
                 ];
-                
                 $result = $this->Pembayaran_model->update($id, $data_update);
-                
                 if ($result) {
                     $this->session->set_flashdata('success', 'Data pembayaran berhasil diupdate!');
                     redirect('pembayaran');
@@ -166,7 +174,7 @@ class Pembayaran extends CI_Controller {
         $result = $this->Pembayaran_model->delete($id);
         if ($result) {
             // Set tagihan back to unpaid
-            $this->Tagihan_model->set_unpaid($pembayaran['id_tagihan']);
+        $this->Tagihan_model->set_unpaid($pembayaran['id_tagihan']);
             
             // Commit transaction
             $this->db->trans_complete();
@@ -177,7 +185,7 @@ class Pembayaran extends CI_Controller {
                 $this->session->set_flashdata('error', 'Gagal menghapus data pembayaran!');
             } else {
                 // Transaction successful
-                $this->session->set_flashdata('success', 'Data pembayaran berhasil dihapus!');
+        $this->session->set_flashdata('success', 'Data pembayaran berhasil dihapus!');
             }
         } else {
             // Rollback transaction
@@ -213,21 +221,18 @@ class Pembayaran extends CI_Controller {
     public function report() {
         $data['page_title'] = 'Laporan Pembayaran';
         $data['active_page'] = 'laporan';
-        
         // Get filter parameters
-        $bulan = $this->input->get('bulan') ?: date('F');
-        $tahun = $this->input->get('tahun') ?: date('Y');
-        $status = $this->input->get('status') ?: '';
-        
-        // Get payment statistics
-        $data['statistics'] = $this->get_payment_statistics($bulan, $tahun);
-        $data['payments'] = $this->get_filtered_payments($bulan, $tahun, $status);
+        $bulan = $this->input->get('bulan');
+        $tahun = $this->input->get('tahun');
+        $status = $this->input->get('status');
+        // Get payment statistics and report dynamically
+        $data['statistics'] = $this->Pembayaran_model->get_payment_stats($bulan, $tahun, $status);
+        $data['payments'] = $this->Pembayaran_model->get_payment_report($bulan, $tahun, $status);
         $data['filter'] = [
             'bulan' => $bulan,
             'tahun' => $tahun,
             'status' => $status
         ];
-        
         $this->load->view('layouts/main', [
             'content' => 'application/views/pages/pembayaran_report.php',
             'page_title' => $data['page_title'],

@@ -171,4 +171,43 @@ class Pembayaran_model extends CI_Model {
         $this->db->where('id_tagihan', $id_tagihan);
         return $this->db->get($this->table)->row_array();
     }
+
+    /**
+     * Get dynamic payment report with filter
+     */
+    public function get_payment_report($bulan = null, $tahun = null, $status = null) {
+        $this->db->select('pembayaran.*, pelanggan.nama_pelanggan, pelanggan.nomor_kwh, tagihan.bulan, tagihan.tahun, tagihan.jumlah_meter, tagihan.status as status_tagihan');
+        $this->db->from('pembayaran');
+        $this->db->join('pelanggan', 'pelanggan.id_pelanggan = pembayaran.id_pelanggan', 'left');
+        $this->db->join('tagihan', 'tagihan.id_tagihan = pembayaran.id_tagihan', 'left');
+        if ($bulan) $this->db->where('tagihan.bulan', $bulan);
+        if ($tahun) $this->db->where('tagihan.tahun', $tahun);
+        if ($status) $this->db->where('tagihan.status', $status);
+        $this->db->order_by('pembayaran.tanggal_pembayaran', 'DESC');
+        return $this->db->get()->result_array();
+    }
+
+    /**
+     * Get payment statistics for dashboard
+     */
+    public function get_payment_stats($bulan = null, $tahun = null, $status = null) {
+        $this->db->from('pembayaran');
+        $this->db->join('tagihan', 'tagihan.id_tagihan = pembayaran.id_tagihan', 'left');
+        if ($bulan) $this->db->where('tagihan.bulan', $bulan);
+        if ($tahun) $this->db->where('tagihan.tahun', $tahun);
+        if ($status) $this->db->where('tagihan.status', $status);
+        $total_pembayaran = $this->db->count_all_results('', false);
+        $this->db->select_sum('total_bayar');
+        $total_pendapatan = $this->db->get()->row()->total_bayar;
+        $this->db->select_avg('total_bayar');
+        $rata_rata = $this->db->get('pembayaran')->row()->total_bayar;
+        $this->db->select('COUNT(DISTINCT pembayaran.id_pelanggan) as pelanggan_aktif');
+        $pelanggan_aktif = $this->db->get('pembayaran')->row()->pelanggan_aktif;
+        return [
+            'total_pembayaran' => $total_pembayaran,
+            'total_pendapatan' => $total_pendapatan,
+            'rata_rata' => $rata_rata,
+            'pelanggan_aktif' => $pelanggan_aktif
+        ];
+    }
 } 

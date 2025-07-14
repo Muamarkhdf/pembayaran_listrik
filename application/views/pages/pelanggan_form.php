@@ -22,8 +22,8 @@ $pelanggan_data = $is_edit ? $pelanggan : [];
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            
-            <!-- Alert untuk notifikasi -->
+
+<!-- Alert untuk notifikasi -->
             <?php if ($this->session->flashdata('success')): ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <?= $this->session->flashdata('success') ?>
@@ -36,7 +36,7 @@ $pelanggan_data = $is_edit ? $pelanggan : [];
                     <?= $this->session->flashdata('error') ?>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-            <?php endif; ?>
+<?php endif; ?>
 
             <!-- Header -->
             <div class="d-flex justify-content-between align-items-center mb-3">

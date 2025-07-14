@@ -3,27 +3,40 @@
 // This view displays customer dashboard with statistics and recent activities
 ?>
 
+<!-- Content Row -->
 <div class="row">
     <!-- Welcome Section -->
     <div class="col-12 mb-4">
-        <div class="card">
+        <div class="card shadow h-100 py-2">
             <div class="card-body">
-                <h4 class="card-title">
-                    <i class="fas fa-user-circle mr-2"></i>
-                    Selamat Datang, <?= $customer_info['nama_pelanggan'] ?? 'Pelanggan' ?>!
-                </h4>
-                <p class="card-text text-muted">
-                    Nomor KWH: <?= $customer_info['nomor_kwh'] ?? '-' ?> | 
-                    Daya: <?= $customer_info['daya'] ?? '-' ?> VA | 
-                    Tarif: Rp <?= number_format($customer_info['tarifperkwh'] ?? 0, 0, ',', '.') ?>/kWh
-                </p>
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Selamat Datang
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            <?= $customer_info['nama_pelanggan'] ?? 'Pelanggan' ?>
+                        </div>
+                        <div class="text-muted">
+                            Nomor KWH: <?= $customer_info['nomor_kwh'] ?? '-' ?> | 
+                            Daya: <?= $customer_info['daya'] ?? '-' ?> VA | 
+                            Tarif: Rp <?= number_format($customer_info['tarifperkwh'] ?? 0, 0, ',', '.') ?>/kWh
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-user-circle fa-2x text-gray-300"></i>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Statistics Cards -->
-    <div class="col-md-3 mb-4">
-        <div class="card border-left-primary">
+<!-- Content Row -->
+<div class="row">
+    <!-- Total Bills Card -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
@@ -42,8 +55,9 @@
         </div>
     </div>
 
-    <div class="col-md-3 mb-4">
-        <div class="card border-left-warning">
+    <!-- Unpaid Bills Card -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
@@ -62,8 +76,9 @@
         </div>
     </div>
 
-    <div class="col-md-3 mb-4">
-        <div class="card border-left-success">
+    <!-- Paid Bills Card -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
@@ -82,8 +97,9 @@
         </div>
     </div>
 
-    <div class="col-md-3 mb-4">
-        <div class="card border-left-info">
+    <!-- Usage Statistics Card -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
@@ -103,11 +119,12 @@
     </div>
 </div>
 
+<!-- Content Row -->
 <div class="row">
     <!-- Recent Bills -->
-    <div class="col-md-6 mb-4">
-        <div class="card">
-            <div class="card-header">
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
                     <i class="fas fa-file-invoice mr-2"></i>Tagihan Terbaru
                 </h6>
@@ -115,7 +132,7 @@
             <div class="card-body">
                 <?php if (!empty($tagihan_terbaru)): ?>
                     <div class="table-responsive">
-                        <table class="table table-sm">
+                        <table class="table table-bordered" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>Periode</th>
@@ -150,9 +167,9 @@
     </div>
 
     <!-- Recent Payments -->
-    <div class="col-md-6 mb-4">
-        <div class="card">
-            <div class="card-header">
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-success">
                     <i class="fas fa-history mr-2"></i>Pembayaran Terbaru
                 </h6>
@@ -160,7 +177,7 @@
             <div class="card-body">
                 <?php if (!empty($pembayaran_terbaru)): ?>
                     <div class="table-responsive">
-                        <table class="table table-sm">
+                        <table class="table table-bordered" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>Tanggal</th>
@@ -187,11 +204,12 @@
     </div>
 </div>
 
-<!-- Usage Statistics -->
+<!-- Content Row -->
 <div class="row">
+    <!-- Usage Statistics -->
     <div class="col-12">
-        <div class="card">
-            <div class="card-header">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-info">
                     <i class="fas fa-chart-line mr-2"></i>Statistik Penggunaan (6 Bulan Terakhir)
                 </h6>
@@ -199,7 +217,7 @@
             <div class="card-body">
                 <?php if (!empty($statistik_penggunaan)): ?>
                     <div class="table-responsive">
-                        <table class="table table-sm">
+                        <table class="table table-bordered" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>Periode</th>
@@ -228,11 +246,12 @@
     </div>
 </div>
 
-<!-- Quick Actions -->
-<div class="row mt-4">
+<!-- Content Row -->
+<div class="row">
+    <!-- Quick Actions -->
     <div class="col-12">
-        <div class="card">
-            <div class="card-header">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
                     <i class="fas fa-bolt mr-2"></i>Aksi Cepat
                 </h6>

@@ -4,30 +4,30 @@ $active_page = 'pembayaran';
 ?>
 
 <div class="container-fluid">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Detail Pembayaran</h1>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Detail Pembayaran</h1>
         <div>
             <a href="<?= base_url('pembayaran/edit/' . $pembayaran['id_pembayaran']) ?>" class="btn btn-warning btn-sm">
                 <i class="fas fa-edit fa-sm"></i> Edit
             </a>
             <a href="<?= base_url('pembayaran') ?>" class="btn btn-secondary btn-sm">
                 <i class="fas fa-arrow-left fa-sm"></i> Kembali
-            </a>
+    </a>
         </div>
-    </div>
+</div>
 
-    <div class="row">
+<div class="row">
         <!-- Payment Information -->
-        <div class="col-lg-8">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">
+    <div class="col-lg-8">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
                         <i class="fas fa-receipt mr-2"></i>Informasi Pembayaran
-                    </h6>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
                             <table class="table table-borderless">
                                 <tr>
                                     <td width="40%"><strong>ID Pembayaran</strong></td>
@@ -46,7 +46,7 @@ $active_page = 'pembayaran';
                                     <td>: <?= htmlspecialchars($pembayaran['nama_admin']) ?></td>
                                 </tr>
                             </table>
-                        </div>
+                                </div>
                         <div class="col-md-6">
                             <table class="table table-borderless">
                                 <tr>
@@ -68,16 +68,16 @@ $active_page = 'pembayaran';
                             </table>
                         </div>
                     </div>
-                </div>
-            </div>
-
+                        </div>
+                    </div>
+                    
             <!-- Usage Details -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-info">
                         <i class="fas fa-tachometer-alt mr-2"></i>Detail Penggunaan
                     </h6>
-                </div>
+                                </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
@@ -92,8 +92,8 @@ $active_page = 'pembayaran';
                                 <div class="h4 text-success mb-0">Rp <?= number_format($pembayaran['tarifperkwh'], 0, ',', '.') ?></div>
                                 <div class="text-muted">per kWh</div>
                                 <small class="text-muted">Tarif</small>
-                            </div>
-                        </div>
+                    </div>
+                                </div>
                         <div class="col-md-4">
                             <div class="text-center">
                                 <div class="h4 text-warning mb-0">Rp <?= number_format($pembayaran['total_tagihan'], 0, ',', '.') ?></div>
@@ -102,9 +102,9 @@ $active_page = 'pembayaran';
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                                </div>
+                                </div>
+                            </div>
 
         <!-- Payment Summary -->
         <div class="col-lg-4">
@@ -125,8 +125,8 @@ $active_page = 'pembayaran';
                         <div class="d-flex justify-content-between">
                             <span>Biaya Admin</span>
                             <span>Rp <?= number_format($pembayaran['biaya_admin'], 0, ',', '.') ?></span>
-                        </div>
-                    </div>
+                                </div>
+                            </div>
                     <hr>
                     <div class="mb-3">
                         <div class="d-flex justify-content-between">
@@ -139,18 +139,18 @@ $active_page = 'pembayaran';
                         <div class="badge badge-success badge-lg p-2">
                             <i class="fas fa-check-circle mr-1"></i>
                             LUNAS
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
+                
             <!-- Quick Actions -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">
                         <i class="fas fa-cogs mr-2"></i>Aksi Cepat
                     </h6>
-                </div>
+                        </div>
                 <div class="card-body">
                     <div class="d-grid gap-2">
                         <a href="<?= base_url('pembayaran/edit/' . $pembayaran['id_pembayaran']) ?>" 
@@ -175,17 +175,17 @@ $active_page = 'pembayaran';
             </div>
         </div>
     </div>
-
+    
     <!-- Related Information -->
     <div class="row">
         <div class="col-12">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
                         <i class="fas fa-info-circle mr-2"></i>Informasi Tambahan
-                    </h6>
-                </div>
-                <div class="card-body">
+                </h6>
+            </div>
+            <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
                             <h6 class="text-primary">Perhitungan Tagihan</h6>
@@ -194,7 +194,7 @@ $active_page = 'pembayaran';
                                 <?= number_format($pembayaran['jumlah_meter']) ?> kWh × Rp <?= number_format($pembayaran['tarifperkwh'], 0, ',', '.') ?> = 
                                 Rp <?= number_format($pembayaran['total_tagihan'], 0, ',', '.') ?>
                             </p>
-                        </div>
+                </div>
                         <div class="col-md-6">
                             <h6 class="text-success">Perhitungan Pembayaran</h6>
                             <p class="text-muted">
@@ -203,10 +203,10 @@ $active_page = 'pembayaran';
                                 Rp <?= number_format($pembayaran['biaya_admin'], 0, ',', '.') ?> = 
                                 Rp <?= number_format($pembayaran['total_bayar'], 0, ',', '.') ?>
                             </p>
-                        </div>
-                    </div>
+                </div>
+                </div>
                 </div>
             </div>
         </div>
     </div>
-</div> 
+</div>

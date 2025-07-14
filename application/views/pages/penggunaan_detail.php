@@ -44,12 +44,12 @@ $tagihan_data = isset($tagihan) ? $tagihan : [];
             </div>
 
             <!-- Usage Information Card -->
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Informasi Penggunaan</h6>
-                </div>
-                <div class="card-body">
-                    <div class="row">
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
                         <div class="col-md-6">
                             <table class="table table-borderless">
                                 <tr>
@@ -83,8 +83,8 @@ $tagihan_data = isset($tagihan) ? $tagihan : [];
                             </table>
                         </div>
                     </div>
-                </div>
-            </div>
+                                    </div>
+                                    </div>
 
             <!-- Meter Reading Details -->
             <div class="row">
@@ -106,11 +106,11 @@ $tagihan_data = isset($tagihan) ? $tagihan : [];
                             </div>
                         </div>
                     </div>
-                </div>
+                            </div>
 
                 <div class="col-md-4">
                     <div class="card border-left-success shadow h-100 py-2">
-                        <div class="card-body">
+                            <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
@@ -130,7 +130,7 @@ $tagihan_data = isset($tagihan) ? $tagihan : [];
 
                 <div class="col-md-4">
                     <div class="card border-left-warning shadow h-100 py-2">
-                        <div class="card-body">
+                            <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
@@ -142,12 +142,12 @@ $tagihan_data = isset($tagihan) ? $tagihan : [];
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-bolt fa-2x text-gray-300"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
             <!-- Tagihan Information Card -->
             <div class="card shadow mb-4">
@@ -161,7 +161,7 @@ $tagihan_data = isset($tagihan) ? $tagihan : [];
                 </div>
                 <div class="card-body">
                     <?php if ($tagihan_data): ?>
-                        <div class="row">
+                <div class="row">
                             <div class="col-md-6">
                                 <table class="table table-borderless">
                                     <tr>
@@ -213,29 +213,29 @@ $tagihan_data = isset($tagihan) ? $tagihan : [];
             <div class="row">
                 <div class="col-md-12">
                     <div class="card shadow">
-                        <div class="card-body">
+                            <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <div>
                                     <a href="<?= base_url('penggunaan/edit/' . $penggunaan_data['id_penggunaan']) ?>" class="btn btn-warning">
-                                        <i class="fas fa-edit"></i> Edit Penggunaan
-                                    </a>
+                                    <i class="fas fa-edit"></i> Edit Penggunaan
+                                </a>
                                     <a href="<?= base_url('penggunaan/delete/' . $penggunaan_data['id_penggunaan']) ?>" 
-                                       class="btn btn-danger"
-                                       onclick="return confirm('Apakah Anda yakin ingin menghapus data penggunaan ini?')">
-                                        <i class="fas fa-trash"></i> Hapus Penggunaan
-                                    </a>
+                                   class="btn btn-danger"
+                                   onclick="return confirm('Apakah Anda yakin ingin menghapus data penggunaan ini?')">
+                                    <i class="fas fa-trash"></i> Hapus Penggunaan
+                                </a>
                                 </div>
                                 <div>
-                                    <a href="<?= base_url('penggunaan') ?>" class="btn btn-secondary">
-                                        <i class="fas fa-arrow-left"></i> Kembali ke Daftar
-                                    </a>
-                                </div>
+                                <a href="<?= base_url('penggunaan') ?>" class="btn btn-secondary">
+                                    <i class="fas fa-arrow-left"></i> Kembali ke Daftar
+                                </a>
+                            </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
         </div> <!-- col-md-12 -->
     </div> <!-- row -->
 </div> <!-- container-fluid --> 

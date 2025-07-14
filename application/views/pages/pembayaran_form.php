@@ -10,26 +10,26 @@ $active_page = 'pembayaran';
         </h1>
         <a href="<?= base_url('pembayaran') ?>" class="btn btn-secondary btn-sm">
             <i class="fas fa-arrow-left fa-sm"></i> Kembali
-        </a>
+    </a>
     </div>
 
-    <?php if ($this->session->flashdata('error')): ?>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <?= $this->session->flashdata('error') ?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    <?php endif; ?>
+<?php if ($this->session->flashdata('error')): ?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <?= $this->session->flashdata('error') ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<?php endif; ?>
 
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
                 <i class="fas fa-credit-card mr-2"></i>
                 <?= isset($pembayaran) ? 'Edit Data Pembayaran' : 'Form Pembayaran Baru' ?>
-            </h6>
-        </div>
-        <div class="card-body">
+                </h6>
+            </div>
+            <div class="card-body">
             <?php if (isset($pembayaran)): ?>
                 <!-- Edit Form -->
                 <form method="post" action="">
@@ -107,8 +107,8 @@ $active_page = 'pembayaran';
                             <select class="form-control" name="id_tagihan" id="id_tagihan" required>
                                 <option value="">-- Pilih Tagihan --</option>
                                 <?php foreach ($tagihan as $t): ?>
-                                    <option value="<?= $t['id_tagihan'] ?>" 
-                                            data-tarif="<?= $t['tarifperkwh'] ?>"
+                                    <option value="<?= $t['id_tagihan'] ?>"
+                                        data-tarif="<?= $t['tarifperkwh'] ?>"
                                             data-meter="<?= $t['jumlah_meter'] ?>"
                                             data-admin="10000">
                                         <?= htmlspecialchars($t['nama_pelanggan']) ?> - 
@@ -117,34 +117,34 @@ $active_page = 'pembayaran';
                                         (<?= number_format($t['total_bayar'], 0, ',', '.') ?>)
                                     </option>
                                 <?php endforeach; ?>
-                            </select>
+                        </select>
                             <small class="form-text text-muted">Pilih tagihan yang akan dibayar</small>
-                        </div>
-                        
-                        <div id="payment-details" style="display: none;">
+                    </div>
+                    
+                    <div id="payment-details" style="display: none;">
                             <div class="card border-primary">
                                 <div class="card-header bg-primary text-white">
                                     <h6 class="mb-0"><i class="fas fa-calculator mr-2"></i>Detail Pembayaran</h6>
                                 </div>
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
                                                 <label>Nama Pelanggan</label>
                                                 <input type="text" class="form-control" id="nama_pelanggan" readonly>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
+                            <div class="col-md-6">
+                                <div class="form-group">
                                                 <label>Nomor KWH</label>
                                                 <input type="text" class="form-control" id="nomor_kwh" readonly>
-                                            </div>
-                                        </div>
                                     </div>
-                                    
+                                </div>
+                            </div>
+                            
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <div class="form-group">
+                                <div class="form-group">
                                                 <label>Bulan/Tahun</label>
                                                 <input type="text" class="form-control" id="periode" readonly>
                                             </div>
@@ -153,20 +153,20 @@ $active_page = 'pembayaran';
                                             <div class="form-group">
                                                 <label>Jumlah Meter</label>
                                                 <input type="text" class="form-control" id="jumlah_meter" readonly>
-                                            </div>
+                            </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Daya</label>
                                                 <input type="text" class="form-control" id="daya" readonly>
-                                            </div>
-                                        </div>
                                     </div>
-                                    
+                                </div>
+                            </div>
+                            
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Tarif per kWh</label>
+                                <div class="form-group">
+                                    <label>Tarif per kWh</label>
                                                 <input type="text" class="form-control" id="tarif_perkwh" readonly>
                                             </div>
                                         </div>
@@ -180,13 +180,13 @@ $active_page = 'pembayaran';
                                             <div class="form-group">
                                                 <label>Biaya Admin</label>
                                                 <input type="text" class="form-control" id="biaya_admin" readonly>
-                                            </div>
-                                        </div>
                                     </div>
-                                    
+                                </div>
+                            </div>
+                            
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="form-group">
+                                <div class="form-group">
                                                 <label class="h5 text-primary">Total Bayar</label>
                                                 <input type="text" class="form-control form-control-lg font-weight-bold text-primary" id="total_bayar" readonly>
                                             </div>
@@ -197,13 +197,13 @@ $active_page = 'pembayaran';
                         </div>
                         
                         <div class="form-group mt-3">
-                            <button type="submit" class="btn btn-primary" id="btn-submit" disabled>
+                            <button type="submit" class="btn btn-primary" id="btn-submit">
                                 <i class="fas fa-credit-card"></i> Proses Pembayaran
-                            </button>
-                            <a href="<?= base_url('pembayaran') ?>" class="btn btn-secondary">
-                                <i class="fas fa-times"></i> Batal
-                            </a>
-                        </div>
+                                    </button>
+                                    <a href="<?= base_url('pembayaran') ?>" class="btn btn-secondary">
+                                        <i class="fas fa-times"></i> Batal
+                                    </a>
+                                </div>
                     </form>
                 <?php endif; ?>
             <?php endif; ?>
@@ -218,13 +218,13 @@ $(document).ready(function() {
         var tarif = parseFloat(selectedOption.data('tarif')) || 0;
         var meter = parseFloat(selectedOption.data('meter')) || 0;
         var admin = parseFloat(selectedOption.data('admin')) || 0;
-        
+    
         if (selectedOption.val()) {
             // Calculate payment details
             var totalTagihan = tarif * meter;
             var totalBayar = totalTagihan + admin;
-            
-            // Update form fields
+        
+        // Update form fields
             $('#nama_pelanggan').val(selectedOption.text().split(' - ')[0]);
             $('#nomor_kwh').val(selectedOption.text().split(' - ')[1]);
             $('#periode').val(selectedOption.text().split(' - ')[2]);
@@ -238,11 +238,11 @@ $(document).ready(function() {
             // Show payment details
             $('#payment-details').show();
             $('#btn-submit').prop('disabled', false);
-        } else {
-            // Hide payment details
+    } else {
+        // Hide payment details
             $('#payment-details').hide();
             $('#btn-submit').prop('disabled', true);
-        }
+    }
     });
 });
 </script> 
