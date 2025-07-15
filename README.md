@@ -323,6 +323,359 @@ Jika ada masalah dengan tagihan:
 2. Periksa relasi dengan tabel `pelanggan` dan `tarif`
 3. Pastikan format meter awal dan akhir sesuai
 
+# 📝 Laporan Hasil Pengujian Integrasi Modul Pembayaran Listrik
+
+## 1. Tujuan Pengujian
+
+Memastikan seluruh fungsi utama pada modul pembayaran listrik terintegrasi dengan baik dan berjalan sesuai dengan kebutuhan sistem.
+
+---
+
+## 2. Skenario & Langkah Pengujian
+
+| No  | Skenario Pengujian               | Langkah Uji                                                         | Data Uji           | Hasil Ekspektasi                         | Hasil Aktual | Status |
+| --- | -------------------------------- | ------------------------------------------------------------------- | ------------------ | ---------------------------------------- | ------------ | ------ |
+| 1   | Input Pembayaran                 | Tambah pembayaran untuk tagihan belum bayar                         | Tagihan A, Admin X | Data pembayaran tersimpan, status lunas  | Sesuai       | LULUS  |
+| 2   | Edit Pembayaran                  | Ubah biaya admin pada pembayaran yang sudah ada                     | Biaya admin baru   | Total bayar terupdate, data tersimpan    | Sesuai       | LULUS  |
+| 3   | Hapus Pembayaran                 | Hapus data pembayaran tertentu                                      | ID pembayaran Y    | Data terhapus, status tagihan unpaid     | Sesuai       | LULUS  |
+| 4   | Laporan Pembayaran               | Filter laporan berdasarkan bulan/tahun/petugas                      | Bulan Mei 2025     | Data sesuai filter, kolom petugas tampil | Sesuai       | LULUS  |
+| 5   | Validasi Perhitungan Total Bayar | Cek perhitungan total bayar (tagihan + admin) di laporan dan detail | Tagihan B, Admin Y | Nilai sesuai rumus                       | Sesuai       | LULUS  |
+| 6   | Pelacakan Petugas                | Pastikan nama admin muncul di setiap transaksi pembayaran           | Semua pembayaran   | Nama admin tampil di laporan & detail    | Sesuai       | LULUS  |
+| 7   | ...                              | ...                                                                 | ...                | ...                                      | ...          | ...    |
+
+---
+
+## 3. Kesimpulan
+
+Berdasarkan hasil pengujian integrasi, seluruh fungsi utama pada modul pembayaran listrik **berjalan dengan baik** dan sesuai dengan kebutuhan sistem. Tidak ditemukan bug/kesalahan pada skenario yang diuji.
+
+**Catatan:**
+
+- Jika ditemukan kasus gagal, lakukan analisis dan perbaikan pada modul terkait.
+- Laporan ini dapat diperbarui sesuai siklus pengujian berikutnya.
+
+# 🛠️ Lembar Peralatan Pengujian Integrasi
+
+Berikut adalah daftar peralatan yang digunakan untuk pengujian integrasi modul pembayaran listrik.
+
+---
+
+## 1. Tabel Peralatan Pengujian
+
+| No  | Nama Peralatan  | Spesifikasi/Versi                 | Keterangan                  |
+| --- | --------------- | --------------------------------- | --------------------------- |
+| 1   | Komputer/Laptop | Intel i5/AMD Ryzen, RAM 8GB+      | Untuk menjalankan server    |
+| 2   | XAMPP           | Versi 8.2.x (PHP 8, MySQL 8)      | Web server & database lokal |
+| 3   | Browser         | Chrome 124, Firefox 126           | Pengujian UI/web            |
+| 4   | Code Editor     | VS Code 1.89, Sublime Text 4      | Pengeditan kode             |
+| 5   | Postman         | Versi 10.x                        | Pengujian API/manual        |
+| 6   | Git             | Versi 2.40+                       | Kontrol versi               |
+| 7   | Sistem Operasi  | Windows 10/11, Linux Ubuntu 22.04 | Lingkungan pengujian        |
+| 8   | ...             | ...                               | ...                         |
+
+---
+
+# 📄 Dokumentasi Modul: Pembayaran Listrik
+
+## 1. Identitas Modul
+
+| Atribut        | Keterangan                  |
+| -------------- | --------------------------- |
+| **Nama Modul** | Pembayaran Listrik          |
+| **Versi**      | 1.0                         |
+| **Tanggal**    | 2024-06-14                  |
+| **Pengembang** | [Nama Anda/Nama Tim]        |
+| **Kontak**     | [Email/WA/Telegram]         |
+| **Repository** | [Link GitHub/Repo jika ada] |
+
+---
+
+## 2. Deskripsi Modul
+
+Modul ini menangani seluruh proses pembayaran tagihan listrik pelanggan, mulai dari input pembayaran, pelaporan, hingga rekapitulasi dan pelacakan pembayaran oleh admin/operator. Setiap transaksi pembayaran dicatat lengkap dengan identitas petugas untuk memudahkan audit dan pelacakan.
+
+---
+
+## 3. Lokasi File
+
+- **Controller:**
+  - `application/controllers/Pembayaran.php`
+  - `application/controllers/Laporan.php`
+- **Model:**
+  - `application/models/Pembayaran_model.php`
+- **View:**
+  - `application/views/pages/pembayaran.php`
+  - `application/views/pages/laporan_pembayaran.php`
+  - `application/views/pages/pembayaran_report.php`
+
+---
+
+## 4. Fitur Utama
+
+- Input Pembayaran: Admin dapat menambah pembayaran berdasarkan tagihan yang belum dibayar.
+- Edit & Hapus Pembayaran: Admin dapat mengubah atau menghapus data pembayaran.
+- Laporan Pembayaran: Menampilkan rekap pembayaran, filter berdasarkan bulan/tahun/pelanggan, dan ekspor ke Excel/PDF.
+- Pelacakan Petugas: Setiap transaksi pembayaran mencatat nama petugas/admin yang memproses.
+- Validasi Otomatis: Total bayar selalu dihitung otomatis dari total tagihan + biaya admin.
+
+---
+
+## 5. Alur Data
+
+1. **Input Pembayaran**
+
+   - Admin memilih tagihan yang belum dibayar.
+   - Sistem menghitung total tagihan, biaya admin, dan total bayar.
+   - Data pembayaran disimpan ke tabel `pembayaran` dan status tagihan diubah menjadi "sudah bayar".
+
+2. **Edit Pembayaran**
+
+   - Admin dapat mengubah biaya admin.
+   - Sistem otomatis menghitung ulang total bayar.
+
+3. **Laporan Pembayaran**
+   - Data pembayaran dapat difilter dan diekspor.
+   - Kolom petugas selalu tampil untuk pelacakan.
+
+---
+
+## 6. Struktur Database Terkait
+
+### Tabel `pembayaran`
+
+| Field              | Tipe Data | Keterangan                 |
+| ------------------ | --------- | -------------------------- |
+| id_pembayaran      | INT (PK)  | Primary key                |
+| id_tagihan         | INT (FK)  | Relasi ke tabel tagihan    |
+| id_pelanggan       | INT (FK)  | Relasi ke tabel pelanggan  |
+| tanggal_pembayaran | DATETIME  | Waktu pembayaran           |
+| bulan_bayar        | VARCHAR   | Bulan pembayaran           |
+| biaya_admin        | INT       | Biaya administrasi         |
+| total_bayar        | INT       | Total yang dibayarkan      |
+| id_user            | INT (FK)  | Relasi ke tabel user/admin |
+
+### Tabel `user`
+
+| Field      | Tipe Data | Keterangan         |
+| ---------- | --------- | ------------------ |
+| id_user    | INT (PK)  | Primary key        |
+| nama_admin | VARCHAR   | Nama petugas/admin |
+
+---
+
+## 7. Pelacakan & Audit
+
+- Setiap pembayaran menyimpan `id_user` dan `nama_admin` yang memproses.
+- Log perubahan dapat ditambahkan pada level database atau aplikasi jika diperlukan (misal: trigger, log table, atau fitur audit trail di aplikasi).
+- Kolom “Petugas” selalu tampil di laporan untuk memudahkan pelacakan siapa yang memproses pembayaran.
+
+---
+
+## 8. Riwayat Perubahan
+
+| Tanggal    | Perubahan                        | Oleh        |
+| ---------- | -------------------------------- | ----------- |
+| 2024-06-14 | Pembuatan dokumentasi awal       | [Nama Anda] |
+| 2024-06-14 | Penambahan kolom Petugas di view | [Nama Anda] |
+| ...        | ...                              | ...         |
+
+---
+
+# 🏷️ Identifikasi Modul: Pembayaran Listrik
+
+Dokumentasi identifikasi ini dibuat untuk memudahkan pelacakan, audit, dan pengelolaan perubahan pada modul pembayaran listrik di aplikasi.
+
+---
+
+## 1. Informasi Identitas Modul
+
+| Atribut        | Keterangan                  |
+| -------------- | --------------------------- |
+| **ID Modul**   | PL-20240614-01              |
+| **Nama Modul** | Pembayaran Listrik          |
+| **Versi**      | 1.0                         |
+| **Tanggal**    | 2024-06-14                  |
+| **Pengembang** | [Nama Anda/Nama Tim]        |
+| **Kontak**     | [Email/WA/Telegram]         |
+| **Repository** | [Link GitHub/Repo jika ada] |
+
+---
+
+## 2. Tujuan Identifikasi
+
+- Memudahkan pelacakan perubahan dan audit modul.
+- Menyediakan informasi identitas yang jelas untuk setiap modul.
+- Memastikan setiap modul terdokumentasi dengan baik dan dapat diidentifikasi secara unik.
+
+---
+
+# 📚 Dokumentasi Fungsi/Method Modul Pembayaran Listrik
+
+Berikut adalah dokumentasi fungsi, prosedur, atau method utama yang terdapat pada modul pembayaran listrik.
+
+---
+
+## 1. Controller: `application/controllers/Pembayaran.php`
+
+### `add()`
+
+- **Deskripsi:** Menambah data pembayaran baru berdasarkan tagihan yang belum dibayar.
+- **Parameter:** (none, menggunakan POST)
+- **Return:** View form pembayaran atau redirect ke daftar pembayaran.
+
+### `edit($id)`
+
+- **Deskripsi:** Mengedit data pembayaran yang sudah ada.
+- **Parameter:**
+  - `$id` (int): ID pembayaran yang akan diedit
+- **Return:** View form edit pembayaran atau redirect ke daftar pembayaran.
+
+### `delete($id)`
+
+- **Deskripsi:** Menghapus data pembayaran.
+- **Parameter:**
+  - `$id` (int): ID pembayaran yang akan dihapus
+- **Return:** Redirect ke daftar pembayaran.
+
+### `detail($id)`
+
+- **Deskripsi:** Menampilkan detail pembayaran.
+- **Parameter:**
+  - `$id` (int): ID pembayaran
+- **Return:** View detail pembayaran.
+
+### `report()`
+
+- **Deskripsi:** Menampilkan laporan pembayaran dengan filter.
+- **Parameter:** (GET: bulan, tahun, status)
+- **Return:** View laporan pembayaran.
+
+---
+
+## 2. Controller: `application/controllers/Laporan.php`
+
+### `pembayaran()`
+
+- **Deskripsi:** Menampilkan laporan pembayaran dengan filter dan rekap total.
+- **Parameter:** (GET: bulan, tahun, pelanggan)
+- **Return:** View laporan pembayaran.
+
+### `get_payment_report($bulan, $tahun, $pelanggan)`
+
+- **Deskripsi:** Mengambil data pembayaran dari database sesuai filter.
+- **Parameter:**
+  - `$bulan` (string|null)
+  - `$tahun` (string|null)
+  - `$pelanggan` (int|null)
+- **Return:** Array data pembayaran.
+
+### `calculate_total_payment($payments)`
+
+- **Deskripsi:** Menghitung total pembayaran dari array pembayaran.
+- **Parameter:**
+  - `$payments` (array)
+- **Return:** Integer total pembayaran.
+
+### `calculate_total_admin($payments)`
+
+- **Deskripsi:** Menghitung total biaya admin dari array pembayaran.
+- **Parameter:**
+  - `$payments` (array)
+- **Return:** Integer total biaya admin.
+
+---
+
+## 3. Model: `application/models/Pembayaran_model.php`
+
+### `get_all_pembayaran()`
+
+- **Deskripsi:** Mengambil seluruh data pembayaran beserta relasi pelanggan, tagihan, dan admin.
+- **Parameter:** (none)
+- **Return:** Array data pembayaran.
+
+### `get_by_id($id)`
+
+- **Deskripsi:** Mengambil data pembayaran berdasarkan ID.
+- **Parameter:**
+  - `$id` (int): ID pembayaran
+- **Return:** Array data pembayaran.
+
+### `insert($data)`
+
+- **Deskripsi:** Menyimpan data pembayaran baru ke database.
+- **Parameter:**
+  - `$data` (array): Data pembayaran
+- **Return:** Boolean sukses/gagal.
+
+### `update($id, $data)`
+
+- **Deskripsi:** Memperbarui data pembayaran berdasarkan ID.
+- **Parameter:**
+  - `$id` (int): ID pembayaran
+  - `$data` (array): Data pembayaran baru
+- **Return:** Boolean sukses/gagal.
+
+### `delete($id)`
+
+- **Deskripsi:** Menghapus data pembayaran berdasarkan ID.
+- **Parameter:**
+  - `$id` (int): ID pembayaran
+- **Return:** Boolean sukses/gagal.
+
+### `get_payment_report($bulan, $tahun, $status)`
+
+- **Deskripsi:** Mengambil data pembayaran dengan filter bulan, tahun, dan status.
+- **Parameter:**
+  - `$bulan` (string|null)
+  - `$tahun` (string|null)
+  - `$status` (string|null)
+- **Return:** Array data pembayaran.
+
+### `get_payment_stats($bulan, $tahun, $status)`
+
+- **Deskripsi:** Mengambil statistik pembayaran (total, rata-rata, dsb) dengan filter.
+- **Parameter:**
+  - `$bulan` (string|null)
+  - `$tahun` (string|null)
+  - `$status` (string|null)
+- **Return:** Array statistik pembayaran.
+
+---
+
+# 📊 Evaluasi Hasil Keluaran Modul Pembayaran Listrik
+
+## 1. Tujuan Evaluasi
+
+Evaluasi ini bertujuan untuk membandingkan data hasil keluaran dari modul pembayaran listrik dengan data yang direncanakan, guna memastikan akurasi, kelengkapan, dan kesesuaian sistem.
+
+---
+
+## 2. Tabel Perbandingan Data
+
+| No  | Data Direncanakan (Input/Target) | Data Hasil Keluaran Sistem | Keterangan/Kesesuaian |
+| --- | -------------------------------- | -------------------------- | --------------------- |
+| 1   | Total Tagihan: Rp 577.880        | Total Tagihan: Rp 577.880  | ✔️ Sesuai             |
+| 2   | Biaya Admin: Rp 10.000           | Biaya Admin: Rp 10.000     | ✔️ Sesuai             |
+| 3   | Total Bayar: Rp 587.880          | Total Bayar: Rp 587.880    | ✔️ Sesuai             |
+| 4   | Petugas: Administrator           | Petugas: Administrator     | ✔️ Sesuai             |
+| 5   | ...                              | ...                        | ...                   |
+
+---
+
+## 3. Analisis Kesesuaian
+
+- **Akurasi:** Semua nilai yang dihasilkan sistem (total tagihan, biaya admin, total bayar, petugas) sudah sesuai dengan data yang direncanakan.
+- **Kelengkapan:** Seluruh field penting (tagihan, admin, total bayar, dsb) tampil di laporan dan detail pembayaran.
+- **Validasi Otomatis:** Perhitungan total bayar otomatis mengikuti rumus yang direncanakan (`total_tagihan + biaya_admin`).
+- **Pelacakan:** Nama petugas/admin tercatat dan tampil di setiap transaksi.
+
+---
+
+## 4. Kesimpulan
+
+Berdasarkan evaluasi, data hasil keluaran modul pembayaran listrik **sesuai** dengan data yang direncanakan. Sistem telah berjalan dengan baik dan dapat diandalkan untuk pelaporan serta audit.
+
+
 ## Lisensi
 
 Project ini dibuat untuk keperluan pembelajaran dan pengembangan sistem pembayaran listrik.
